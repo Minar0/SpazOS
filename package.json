@@ -1,0 +1,18 @@
+{
+  "name": "spazos",
+  "version": "1.0.0",
+  "description": "A bot that I'm in the process of writing for a joke cult Discord server and will sometimes reference weird pumpkin deities. Try not to think about it too much. If you find yourself thinking about it too much, feel free to join the Church Of Holy Spazkinism. We could use the new bodies. Here is the invite code: 3RNGfSe SpazOS contains whatever I feel neccesary and doesn't realy follow a set plan. He's kinda a grab bag of commands and odd respones. If you would like to add some code to SpazOS, I would love you forever! I will, of course, attribute the code to you. Feel whatever code sections catches your fancy, just make sure you attribute the code to me, Minaro. Thanks! I am a newbie programmer, and this is the first time I've used GitHub. If my code looks weird or if I do odd things on GitHub, it's probably because I don't know what I'm doing, but I'm learning :D",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.6.4",
+    "discord.js-commando": "^0.10.0",
+    "dotenv": "^9.0.2"
+  }
+}

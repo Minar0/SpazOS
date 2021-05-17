@@ -1,0 +1,1 @@
+These commands allow SpazOS to roll dice in chat. I put a letter before the name of the command to keep the command in numerical order. 
