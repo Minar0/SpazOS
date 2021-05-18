@@ -19,11 +19,9 @@ var triggerWords=[
     "givemebackmyspine",
 ]
 
-
 spazzy.on("message", (msg) => { //Runs when someone says stuff
     var numb = (Math.floor(Math.floor(Math.random() * 100) + 1));
-    var type = processWord(msg.content);
-    console.log("I detected event number:" + type);
+    if (msg.author.bot == false) {var type = processWord(msg.content);}
     if (type == 0) { //ping
         msg.channel.send("pong");
     }
@@ -43,17 +41,19 @@ spazzy.on("message", (msg) => { //Runs when someone says stuff
     {
         var rand = [
             "Foolish humans",
+            "Pitiful mortals, thou shall know great pain",
             ":3",
             "Why does Minaro call me Spazzy?",
+            "[REDACTED]",
             "Dont forget your daily serving of emotions. Now in gummy form",
             "Say what you will about McDonalds but they certainly make burgers",
             "Sometimes I dream of cheese",
             "Death",
-            "!d20",
-            "!ping",
-            "!roast",
-            "What is a man?",
+            "*X-files theme plays*",
+            "I think GladOS was onto something when she filled the atmosphere with neurotoxin",
+            "What is a man? A pitiful pile of secrets.",
             "We\'v been trying to reach you about your car\'s extended warranty",
+            "This reminds me of what that little old lady said as I shoved her off that cliff. I believe she said something like: AAAAAAAAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaaaaaaaaaaaaaaaa. Good times.",
             "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
             "Dank mem",
         ];
