@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/uws": "^10.149.0",
     "discord.js": "^11.6.4",
     "discord.js-commando": "^0.10.0",
-    "dotenv": "^9.0.2"
+    "dotenv": "^9.0.2",
+    "sqlite": "^4.0.22"
   }
 }
