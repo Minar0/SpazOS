@@ -1,0 +1,5 @@
+{
+    "clientID": "%CLIENT_ID",
+    "clientSecret": "%CLIENT_SECRET",
+    "port": 53169
+}
