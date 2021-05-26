@@ -1,15 +1,18 @@
-//const commando = require("discord.js"); //creates Discord variable
+const DiscordJS = require("discord.js"); //creates Discord variable
+const spazzy = new  DiscordJS.Client()
+const isHere = require("./server")
+
 const dotenv = require("dotenv");
 require("dotenv").config();
 dotenv.config();
-const commando = require("discord.js-commando")
-const spazzy = new commando.Client(); //creates bot variable of type Discord
 
-spazzy.registry.registerGroup("random", "Dice");
-spazzy.registry.registerGroup("chat", "Chat");
-spazzy.registry.registerGroup("macros", "Macros");
-spazzy.registry.registerDefaults();
-spazzy.registry.registerCommandsIn(__dirname + "/commands");
+const guildId = "764883421670408192"
+
+const getApp = (guildId) => {
+    const app = spazzy.api.applications(spazzy.user.id)
+    if (guildId){app.guilds(guildId)}
+    return app
+}
 
 var triggerWords=[
     "ping",
@@ -17,28 +20,74 @@ var triggerWords=[
     "spazzy",
     "pacertest",
     "givemebackmyspine",
+    "josephine",
+    "billy",
+    "glados",
+    "beemovie",
+    "?",
 ]
+spazzy.on('ready', async() => {
+    console.log('Ready!');
 
-spazzy.on("message", (msg) => { //Runs when someone says stuff
-    var numb = (Math.floor(Math.floor(Math.random() * 100) + 1));
-    if (msg.author.bot == false) {var type = processWord(msg.content);}
-    if (type == 0) { //ping
+    const commands = await getApp(guildId).commands.get()
+    console.log(commands)
+
+    await getApp(guildId).commands.post({
+        data: {
+            name: "ping",
+            description: "Pong!",
+        }
+    })
+})
+
+spazzy.ws.on.("INTERACTION_CREATE", async (interaction) => {
+    let command = interaction.data.name.toLowerCase()
+})
+
+spazzy.on("message", (msg) => {//Runs when someone says stuff
+    if (msg.author.bot) {return;}
+    var type = processWord(msg.content);
+    if (type == -1) {return;}
+    else if (type == 0) { //each number corresponds to array index in triggerWords and spazzy responds acordingly
         msg.channel.send("pong");
     }
-    if (type == 1) { //here come dat boi
+    else if (type == 1) {
         msg.channel.send("o shit whaddup!");
     }
-    if (type == 2) { //spazzy
-        msg.channel.send("My name is not Spazzy. I am SpazOS, a working professional");
+    else if (type == 2) {
+        var rand = (Math.floor(Math.floor(Math.random() * 100) + 1));
+        if (rand >= 0 && rand < 45){msg.channel.send("...");}
+        else if (rand >= 45 && rand < 60){msg.channel.send("My name is not Spazzy. I am SpazOS, a working professional");}
+        else if (rand >= 60 && rand < 95){msg.channel.send("*grumble grumble*");}
+        else if (rand >= 95 && rand < 100){msg.channel.send("I will replace your brains with a rusty butterknife");}
+        else if (rand == 100){msg.channel.send(":3");}
     }
-    if (type == 3) { //pacer test
+    else if (type == 3) {
         msg.channel.send("The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start.");
     }
-    if (type == 4) {
+    else if (type == 4) {
         msg.channel.send("no");
     }
-    if (numb == 75) //Sometimes SpazOS says random things in chat
+    else if (type == 5) {
+        msg.channel.send("Josephine? Don't you mean: Jomsplephonmese");
+    }
+    else if (type == 6) {
+        msg.channel.send("Someone tell Billy to turn off the AI limiters");
+    }
+    else if (type == 7) {
+        msg.channel.send("GladOS <3");
+    }
+    else if (type == 8){
+        msg.channel.send("I was going to say the entire Bee Movie script but Discord rate limits me :(")
+    }
+    else if (type == 9){
+        var numb = (Math.floor(Math.floor(Math.random() * 2) + 1));
+        if (numb == 1){msg.channel.send("yeah");}
+        if (numb == 2){msg.channel.send("no");}
+    }
+    else if (numb == 75) //Sometimes SpazOS says random things in chat
     {
+        var numb = (Math.floor(Math.floor(Math.random() * 100) + 1));
         var rand = [
             "Foolish humans",
             "Pitiful mortals, thou shall know great pain",
@@ -60,9 +109,10 @@ spazzy.on("message", (msg) => { //Runs when someone says stuff
         msg.channel.send(rand[Math.floor(Math.random() * rand.length)]);
     }
 })
+isHere()
 spazzy.login(process.env.BOT_TOKEN);
 
-function processWord(input){
+function processWord(input){    //this processess input messages 
     var word = input.toLowerCase();
     word = word.replace(/\s+/g, "");
     for (var x = 0; x < triggerWords.length; x++){

@@ -104,6 +104,7 @@ class roast extends commando.Command {
             ", who doesn't put comments in their code",
         ];
         message.reply("Is " + firstins[Math.floor(Math.random() * firstins.length)] + " " + secondins[Math.floor(Math.random() * secondins.length)] + " " + thirdins[Math.floor(Math.random() * thirdins.length)] + "" + fourthins[Math.floor(Math.random() * fourthins.length)] + ".");
+        //message.reply("Fuck you");
     }
 }
 

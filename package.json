@@ -8,13 +8,13 @@
     "start": "node .",
     "dev": "nodemon ."
   },
-  "author": "",
+  "author": "Minaro_",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/uws": "^10.149.0",
-    "discord.js": "^11.6.4",
-    "discord.js-commando": "^0.10.0",
+    "cross-env": "^7.0.3",
+    "discord.js": "^12.5.1",
+    "discord.js-commando": "^0.12.3",
     "dotenv": "^9.0.2",
-    "sqlite": "^4.0.22"
+    "express": "^4.17.1"
   }
 }
