@@ -1,8 +1,18 @@
+const fs = require("fs");
 const DiscordJS = require("discord.js"); //creates Discord variable
-const spazzy = new  DiscordJS.Client()
-const isHere = require("./server")
-
+const isHere = require("./server");
 const dotenv = require("dotenv");
+
+const spazzy = new  DiscordJS.Client()
+spazzy.commands = new DiscordJS.Collection()
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    spazzy.commands.set(command.name, command);
+}
+
 require("dotenv").config();
 dotenv.config();
 
@@ -14,7 +24,7 @@ const getApp = (guildId) => {
     return app
 }
 
-var triggerWords=[
+const triggerWords=[
     "ping",
     "herecomedatboi",
     "spazzy",
@@ -26,10 +36,13 @@ var triggerWords=[
     "beemovie",
     "?",
 ]
+
+const prefix= "!"
+
 spazzy.on('ready', async() => {
     console.log('Ready!');
 
-    const commands = await getApp(guildId).commands.get()
+    /*const commands = await getApp(guildId).commands.get()
     console.log(commands)
 
     await getApp(guildId).commands.post({
@@ -38,14 +51,27 @@ spazzy.on('ready', async() => {
             description: "Pong!",
         }
     })
+
+    console.log(command)*/
 })
 
-spazzy.ws.on.("INTERACTION_CREATE", async (interaction) => {
-    let command = interaction.data.name.toLowerCase()
+spazzy.ws.on("INTERACTION_CREATE", async (interaction) => {
+    //const command = interaction.data.name.toLowerCase()
 })
 
 spazzy.on("message", (msg) => {//Runs when someone says stuff
     if (msg.author.bot) {return;}
+    const args = msg.content.slice(prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+    if (msg.content.startsWith(prefix) && spazzy.commands.has(command)){
+        try{
+            spazzy.commands.get(command).execute(msg, args);
+        } catch (error){
+            console.error(error)
+            msg.reply("AHHHHH! Oh uh, your command failed for some reason, better go get Billy")
+        }
+    }
+/*
     var type = processWord(msg.content);
     if (type == -1) {return;}
     else if (type == 0) { //each number corresponds to array index in triggerWords and spazzy responds acordingly
@@ -108,6 +134,7 @@ spazzy.on("message", (msg) => {//Runs when someone says stuff
         ];
         msg.channel.send(rand[Math.floor(Math.random() * rand.length)]);
     }
+    */
 })
 isHere()
 spazzy.login(process.env.BOT_TOKEN);
